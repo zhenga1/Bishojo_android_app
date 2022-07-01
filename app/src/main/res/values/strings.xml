@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bishojo</string>
+    <string name="welcome">Welcome to Bishojo!</string>
+    <string name="promotion1">Enjoy an infinite stream of AI generated Anime pictures!</string>
 </resources>

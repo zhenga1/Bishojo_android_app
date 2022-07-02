@@ -5,11 +5,13 @@
       <map>
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable-v24/anime_girl_splash_background.xml" value="0.1" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/comment_icon.xml" value="0.1" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/edit_icon.xml" value="0.1" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/heart_icon.xml" value="0.1" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1" />
-        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/activity_splash.xml" value="0.1" />
-        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/layout_main.xml" value="0.10666666666666667" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/layout_main.xml" value="0.14666666666666667" />
       </map>
     </option>
   </component>

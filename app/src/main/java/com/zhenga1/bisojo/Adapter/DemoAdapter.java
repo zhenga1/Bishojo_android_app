@@ -33,7 +33,6 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DemoViewHolder holder, int position) {
-
     }
 
     @Override

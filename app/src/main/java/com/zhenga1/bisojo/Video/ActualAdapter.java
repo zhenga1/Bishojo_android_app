@@ -88,6 +88,11 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
     private void showLoadingView(LoadingViewHolder holder, int position){
         //DO something idk
+        ImageView imageView = holder.loadingImgView;
+        Glide.with(context)
+                .asGif()
+                .load(R.raw.loading)//links[index]
+                .into(imageView);
 
     }
     private void populateItemRows(ItemViewHolder itemViewHolder,int position){
@@ -115,9 +120,10 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mediaObjectList==null?0 : mediaObjectList.size();
     }
     public class LoadingViewHolder extends RecyclerView.ViewHolder{
-
+        public ImageView loadingImgView;
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
+            loadingImgView = itemView.findViewById(R.id.loading);
         }
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder{

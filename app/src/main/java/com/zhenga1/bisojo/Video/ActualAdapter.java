@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,6 +87,9 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    }
+    private void populateItemRows(ItemViewHolder itemViewHolder,int position){
+        MediaClass item = mediaObjectList.get(position);
 
     }
 
@@ -106,8 +110,9 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder{
-
+        public TextView tv_item;
         public ItemViewHolder(@NonNull View itemView) {
+
             super(itemView);
         }
     }

@@ -1,12 +1,5 @@
 package com.zhenga1.bisojo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,7 +8,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.zhenga1.bisojo.Adapter.DemoAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
+import com.zhenga1.bisojo.Video.ActualAdapter;
 import com.zhenga1.bisojo.models.MediaClass;
 
 import java.util.ArrayList;
@@ -24,7 +24,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<MediaClass> mediaObjList = new ArrayList<>();
-    private DemoAdapter demoAdapter;
+    //private DemoAdapter demoAdapter;
+    private ActualAdapter actualAdapter;
     private RecyclerView recyclerView;
 
     @Override
@@ -68,9 +69,12 @@ public class MainActivity extends AppCompatActivity {
         mediaObjList.add(new MediaClass("","","","","","","","","",""));
         mediaObjList.add(new MediaClass("","","","","","","","","",""));
 
-        demoAdapter = new DemoAdapter(mediaObjList,getApplicationContext());
-        recyclerView.setAdapter(demoAdapter);
-        demoAdapter.notifyDataSetChanged();
+        //demoAdapter = new DemoAdapter(mediaObjList,getApplicationContext());
+        //recyclerView.setAdapter(demoAdapter);
+        //demoAdapter.notifyDataSetChanged();
+        actualAdapter = new ActualAdapter(mediaObjList,getApplicationContext());
+        recyclerView.setAdapter(actualAdapter);
+        actualAdapter.notifyDataSetChanged();
     }
     public static void setWindowFlag(@NonNull Activity activity,final int bits, boolean on){
         Window win = activity.getWindow();

@@ -46,6 +46,14 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
             R.raw.animation5,
             R.raw.animation6,
             R.raw.animation7,
+            R.raw.animation8,
+            R.raw.animation9,
+            R.raw.animation10,
+            R.raw.animation11,
+            R.raw.animation12,
+            R.raw.animation13,
+            R.raw.animation14,
+            R.raw.animation15
 
     };
     /*final String[] urls = new String[]{
@@ -76,12 +84,14 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
     public DemoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_main,parent,false);
         ImageView imageView = view.findViewById(R.id.background_anime);
+        //Random random = new Random();
+        //int index = random.nextInt(ids.length);
+        //String fileurl = base+ids[index];
         Random random = new Random();
-        int index = random.nextInt(ids.length);
-        String fileurl = base+ids[index];
+        int index = random.nextInt(links.length);
         Glide.with(parent.getContext())
                 .asGif()
-                .load(fileurl)
+                .load(links[index]) //links[index]
                 .into(imageView);
         return new DemoViewHolder(view);
     }

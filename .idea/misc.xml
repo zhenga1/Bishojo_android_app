@@ -11,7 +11,8 @@
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/activity_main.xml" value="0.178125" />
         <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/activity_splash.xml" value="0.1" />
-        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/layout_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/layout_loading.xml" value="0.14666666666666667" />
+        <entry key="..\:/ML_projects/Bishojo/app/src/main/res/layout/layout_main.xml" value="0.22" />
       </map>
     </option>
   </component>

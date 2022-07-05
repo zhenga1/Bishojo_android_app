@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,13 +20,15 @@ import com.zhenga1.bisojo.Video.ActualAdapter;
 import com.zhenga1.bisojo.models.MediaClass;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<MediaClass> mediaObjList = new ArrayList<>();
+    private ArrayList<MediaClass> mediaObjList = new ArrayList<>();
     //private DemoAdapter demoAdapter;
+    private final int INIT_POPULATION = 20;
+    private LinearLayoutManager linearLayoutManager;
     private ActualAdapter actualAdapter;
+    private boolean isLoading = false;
     private RecyclerView recyclerView;
 
     @Override
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -53,28 +56,75 @@ public class MainActivity extends AppCompatActivity {
         SnapHelper mSnapHelper = new PagerSnapHelper();
         mSnapHelper.attachToRecyclerView(recyclerView);
         /////////////////////////////////////////
-
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-        mediaObjList.add(new MediaClass("","","","","","","","","",""));
-
+        populate();
+        initAdapter();
+        initScrollListener();
         //demoAdapter = new DemoAdapter(mediaObjList,getApplicationContext());
         //recyclerView.setAdapter(demoAdapter);
         //demoAdapter.notifyDataSetChanged();
+
+    }
+
+    private void initScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(!isLoading){
+                    if(linearLayoutManager!=null &&
+                            linearLayoutManager.findLastCompletelyVisibleItemPosition()==
+                                    mediaObjList.size()-1){
+                        loadMore();
+                        isLoading=true;
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadMore() {
+        mediaObjList.add(null);
+        actualAdapter.notifyItemInserted(mediaObjList.size() - 1);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mediaObjList.remove(mediaObjList.size()-1);
+                int scrollPosition = mediaObjList.size();
+                actualAdapter.notifyItemRemoved(scrollPosition);
+                int currentSize = scrollPosition;
+
+                //Load at least 10 more options
+                int nextlimit = currentSize+10;
+
+                while(currentSize<=nextlimit){
+                    mediaObjList.add(new MediaClass("","","","","","","","","",""));
+                    currentSize++;
+                }
+                actualAdapter.notifyDataSetChanged();
+                isLoading=false;
+
+
+            }
+        },2000);
+    }
+
+    private void populate(){
+        for(int i=0;i<INIT_POPULATION;i++)
+        {
+            mediaObjList.add(new MediaClass("","","","","","","","","",""));
+        }
+    }
+    private void initAdapter(){
         actualAdapter = new ActualAdapter(mediaObjList,getApplicationContext());
         recyclerView.setAdapter(actualAdapter);
-        actualAdapter.notifyDataSetChanged();
+        //actualAdapter.notifyDataSetChanged();
     }
     public static void setWindowFlag(@NonNull Activity activity,final int bits, boolean on){
         Window win = activity.getWindow();

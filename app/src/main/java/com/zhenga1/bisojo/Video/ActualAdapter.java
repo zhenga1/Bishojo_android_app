@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +13,14 @@ import com.bumptech.glide.Glide;
 import com.zhenga1.bisojo.R;
 import com.zhenga1.bisojo.models.MediaClass;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<MediaClass> mediaObjectList;
+    ArrayList<MediaClass> mediaObjectList;
     final int VIEW_TYPE_ITEM = 1, VIEW_TYPE_LOADING=0;
     Context context;
+    public View parent, imgview;
     final String base = "https://drive.google.com/uc?id=";
     final String[] ids = new String[]{
             "1-QKgZ76K3EZQlbXyY3wI57FA8k31JmrA",
@@ -58,26 +58,19 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     };
 
-    public ActualAdapter(List<MediaClass> mediaObjectList, Context context) {
+    public ActualAdapter(ArrayList<MediaClass> mediaObjectList, Context context) {
         this.mediaObjectList = mediaObjectList;
         this.context = context;
+        this.parent = new View(context);
+        this.imgview = new View(context);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.parent = parent;
         if(viewType==VIEW_TYPE_ITEM){
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_main,parent,false);
-            ImageView imageView = view.findViewById(R.id.background_anime);
-            //Random random = new Random();
-            //int index = random.nextInt(ids.length);
-            //String fileurl = base+ids[index];
-            Random random = new Random();
-            int index = random.nextInt(links.length);
-            Glide.with(parent.getContext())
-                    .asGif()
-                    .load(links[index]) //links[index]
-                    .into(imageView);
             return new ItemViewHolder(view);
         }else{
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_loading,parent,false);
@@ -87,9 +80,27 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof ItemViewHolder){
+            populateItemRows((ItemViewHolder) holder,position);
+        } else if (holder instanceof LoadingViewHolder){
+            showLoadingView((LoadingViewHolder) holder, position);
+        }
+    }
+    private void showLoadingView(LoadingViewHolder holder, int position){
+        //DO something idk
+
     }
     private void populateItemRows(ItemViewHolder itemViewHolder,int position){
-        MediaClass item = mediaObjectList.get(position);
+        ImageView imageView = itemViewHolder.imageView;
+        //Random random = new Random();
+        //int index = random.nextInt(ids.length);
+        //String fileurl = base+ids[index];
+        Random random = new Random();
+        int index = random.nextInt(links.length);
+        Glide.with(context)
+                .asGif()
+                .load(links[index])//links[index]
+                .into(imageView);
 
     }
 
@@ -101,7 +112,7 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
     @Override
     public int getItemCount() {
-        return mediaObjectList.size();
+        return mediaObjectList==null?0 : mediaObjectList.size();
     }
     public class LoadingViewHolder extends RecyclerView.ViewHolder{
 
@@ -110,10 +121,10 @@ public class ActualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder{
-        public TextView tv_item;
+        public ImageView imageView;
         public ItemViewHolder(@NonNull View itemView) {
-
             super(itemView);
+            imageView = itemView.findViewById(R.id.background_anime);
         }
     }
 }
